@@ -31,9 +31,11 @@ function Entry({ name, children }) {
 	return (
 		<div>
 			{name}
-			{children?.map((entry) => (
-				<Entry {...entry} />
-			))}
+			<div style={{ paddingLeft: "10px" }}>
+				{children?.map((entry, index) => (
+					<Entry key={index} {...entry} />
+				))}
+			</div>
 		</div>
 	);
 }
@@ -41,8 +43,8 @@ function Entry({ name, children }) {
 function App() {
 	return (
 		<div className="App">
-			{files.children.map((entry) => (
-				<Entry {...entry} />
+			{files.children.map((entry, index) => (
+				<Entry key={index} {...entry} />
 			))}
 		</div>
 	);
