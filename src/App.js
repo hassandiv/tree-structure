@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./App.css";
 
 const files = {
@@ -28,14 +29,26 @@ const files = {
 };
 
 function Entry({ name, children }) {
+	const [isExpanded, setIsExpanded] = useState(false);
 	return (
-		<div>
-			{name}
-			<div style={{ paddingLeft: "10px" }}>
-				{children?.map((entry, index) => (
-					<Entry key={index} {...entry} />
-				))}
-			</div>
+		<div style={{ paddingBottom: "5px" }}>
+			{children?.length ? (
+				<span
+					style={{ cursor: "pointer" }}
+					onClick={() => setIsExpanded(!isExpanded)}>
+					{isExpanded ? "- " : "+ "}
+					{name}
+				</span>
+			) : (
+				name
+			)}
+			{isExpanded && (
+				<div style={{ paddingLeft: "10px" }}>
+					{children?.map((entry, index) => (
+						<Entry key={index} {...entry} />
+					))}
+				</div>
+			)}
 		</div>
 	);
 }
